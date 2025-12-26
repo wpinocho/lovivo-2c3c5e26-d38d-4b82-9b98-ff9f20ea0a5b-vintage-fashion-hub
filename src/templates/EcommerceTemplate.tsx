@@ -113,45 +113,54 @@ export const EcommerceTemplate = ({
   )
 
   const footer = (
-    <div className={`bg-black text-white py-12 ${footerClassName}`}>
+    <div className={`bg-foreground text-background py-12 ${footerClassName}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <BrandLogoLeft />
-            <p className="mt-4 text-white/70">
-              Your trusted online store
+            <div className="text-2xl font-bold mb-2">REVIVE</div>
+            <p className="mt-4 text-background/70">
+              Sustainable fashion, unique finds, second chances
             </p>
           </div>
 
           {/* Links */}
           <div>
-            <h3 className="font-semibold mb-4 text-white">Links</h3>
+            <h3 className="font-semibold mb-4">Quick Links</h3>
             <div className="space-y-2">
               <Link 
                 to="/" 
-                className="block text-white/70 hover:text-white transition-colors"
+                className="block text-background/70 hover:text-background transition-colors"
               >
-                Home
+                Shop All
               </Link>
               <Link 
                 to="/blog" 
-                className="block text-white/70 hover:text-white transition-colors"
+                className="block text-background/70 hover:text-background transition-colors"
               >
                 Blog
               </Link>
+              <a 
+                href="#" 
+                className="block text-background/70 hover:text-background transition-colors"
+              >
+                Sell With Us
+              </a>
             </div>
           </div>
 
           {/* Social Links */}
           <div>
-            <h3 className="font-semibold mb-4 text-white">Follow Us</h3>
+            <h3 className="font-semibold mb-4">Connect</h3>
             <SocialLinks />
+            <p className="mt-4 text-sm text-background/60">
+              Join the circular fashion movement
+            </p>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-white/20 text-center text-white/70">
-          <p>&copy; 2025 Your Store. All rights reserved.</p>
+        <div className="mt-8 pt-8 border-t border-background/20 text-center text-background/70">
+          <p>&copy; 2025 REVIVE. Recommerce with purpose.</p>
         </div>
       </div>
     </div>
