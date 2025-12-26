@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { User, LogOut, Package } from 'lucide-react'
+import { User, LogOut, Package, Calendar } from 'lucide-react'
 import { toast } from 'sonner'
 
 export const ProfileMenu = () => {
@@ -31,6 +31,10 @@ export const ProfileMenu = () => {
 
   const handleMyOrders = () => {
     navigate('/my-orders')
+  }
+
+  const handleMyLayaways = () => {
+    navigate('/my-layaways')
   }
 
   if (loading) {
@@ -84,6 +88,11 @@ export const ProfileMenu = () => {
         <DropdownMenuItem onClick={handleMyOrders}>
           <Package className="mr-2 h-4 w-4" />
           My Orders
+        </DropdownMenuItem>
+        
+        <DropdownMenuItem onClick={handleMyLayaways}>
+          <Calendar className="mr-2 h-4 w-4" />
+          Mis Apartados
         </DropdownMenuItem>
         
         <DropdownMenuSeparator />

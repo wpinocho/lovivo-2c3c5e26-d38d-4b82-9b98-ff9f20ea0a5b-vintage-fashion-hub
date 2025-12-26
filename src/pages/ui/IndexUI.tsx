@@ -1,12 +1,13 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, Recycle, ShoppingBag } from 'lucide-react';
+import { Search, Recycle, ShoppingBag, Calendar, CreditCard, Shield } from 'lucide-react';
 import { ProductCard } from '@/components/ProductCard';
 import { CollectionCard } from '@/components/CollectionCard';
 import { FloatingCart } from '@/components/FloatingCart';
 import { NewsletterSection } from '@/components/NewsletterSection';
 import { CareGuide } from '@/components/CareGuide';
 import { EcommerceTemplate } from '@/templates/EcommerceTemplate';
+import { Card, CardContent } from '@/components/ui/card';
 import type { UseIndexLogicReturn } from '@/components/headless/HeadlessIndex';
 
 /**
@@ -174,6 +175,115 @@ export const IndexUI = ({ logic }: IndexUIProps) => {
               </p>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Payment Options Section */}
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Opciones de Pago Flexibles
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Hacemos que sea fácil conseguir las piezas vintage que amas con opciones de pago seguras y flexibles
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Apartado */}
+            <Card className="border-2 border-warning/20 hover:border-warning transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 rounded-full bg-warning/10 flex items-center justify-center mb-4">
+                  <Calendar className="h-6 w-6 text-warning" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Sistema de Apartados</h3>
+                <p className="text-muted-foreground mb-4">
+                  Aparta tu pieza favorita con solo el 10% de anticipo
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start">
+                    <span className="text-warning mr-2">✓</span>
+                    <span>Paga solo 10% para reservar</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-warning mr-2">✓</span>
+                    <span>7 días para completar el pago</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-warning mr-2">✓</span>
+                    <span>Producto reservado exclusivamente</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-warning mr-2">✓</span>
+                    <span>Reembolso del 50% si cancelas</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Crédito */}
+            <Card className="border-2 border-accent/20 hover:border-accent transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                  <CreditCard className="h-6 w-6 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Pago a Crédito</h3>
+                <p className="text-muted-foreground mb-4">
+                  Divide tu pago en 3 meses sin intereses
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start">
+                    <span className="text-accent mr-2">✓</span>
+                    <span>3 pagos mensuales fijos</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-accent mr-2">✓</span>
+                    <span>Sin intereses ni comisiones</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-accent mr-2">✓</span>
+                    <span>Aprobación instantánea</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-accent mr-2">✓</span>
+                    <span>Recibe tu producto de inmediato</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Seguridad */}
+            <Card className="border-2 border-success/20 hover:border-success transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 rounded-full bg-success/10 flex items-center justify-center mb-4">
+                  <Shield className="h-6 w-6 text-success" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Pagos Seguros</h3>
+                <p className="text-muted-foreground mb-4">
+                  Tu información está protegida con la mejor tecnología
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start">
+                    <span className="text-success mr-2">✓</span>
+                    <span>Encriptación nivel bancario</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-success mr-2">✓</span>
+                    <span>Procesado por Stripe</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-success mr-2">✓</span>
+                    <span>Garantía de compra segura</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-success mr-2">✓</span>
+                    <span>Soporte 24/7 disponible</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { EcommerceTemplate } from "@/templates/EcommerceTemplate"
 import { ShoppingCart, ArrowLeft, Plus, Minus } from "lucide-react"
 import { Link } from "react-router-dom"
+import { PaymentOptions } from "@/components/PaymentOptions"
 
 import type { Product, ProductVariant } from "@/lib/supabase"
 
@@ -58,6 +59,8 @@ interface ProductPageUIProps {
 }
 
 export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
+  const [paymentMethod, setPaymentMethod] = useState<'full' | 'layaway' | 'credit'>('full')
+  
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -169,7 +172,7 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
             </div>
           )}
 
-          {/* Quantity and Add to Cart */}
+          {/* Quantity */}
           <div className="space-y-4">
             <div className="flex items-center space-x-4">
               <Label htmlFor="quantity" className="text-base font-medium">
@@ -201,22 +204,46 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
                 </Button>
               </div>
             </div>
+          </div>
 
-            <div className="flex items-center gap-4">
-              <Button
-                onClick={logic.handleAddToCart}
-                disabled={!logic.inStock}
-                className="flex-1"
-                size="lg"
-              >
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                {logic.inStock ? 'Add to cart' : 'Out of stock'}
-              </Button>
-              
-              {!logic.inStock && (
-                <Badge variant="secondary">Out of stock</Badge>
-              )}
-            </div>
+          <Separator />
+
+          {/* Payment Options */}
+          <PaymentOptions 
+            price={logic.currentPrice * logic.quantity}
+            onSelectPaymentMethod={setPaymentMethod}
+          />
+
+          {/* Add to Cart */}
+          <div className="flex items-center gap-4">
+            <Button
+              onClick={() => {
+                // En producción, aquí se crearía el checkout con el método seleccionado
+                if (paymentMethod === 'layaway') {
+                  alert(`Apartado iniciado! Pagarás ${logic.formatMoney(logic.currentPrice * logic.quantity * 0.1)} ahora`)
+                } else if (paymentMethod === 'credit') {
+                  alert(`Pago a crédito seleccionado! 3 pagos de ${logic.formatMoney((logic.currentPrice * logic.quantity) / 3)}`)
+                }
+                logic.handleAddToCart()
+              }}
+              disabled={!logic.inStock}
+              className="flex-1"
+              size="lg"
+            >
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              {logic.inStock 
+                ? paymentMethod === 'layaway' 
+                  ? 'Apartar ahora'
+                  : paymentMethod === 'credit'
+                  ? 'Comprar a crédito'
+                  : 'Add to cart'
+                : 'Out of stock'
+              }
+            </Button>
+            
+            {!logic.inStock && (
+              <Badge variant="secondary">Out of stock</Badge>
+            )}
           </div>
 
           {/* Product Info */}

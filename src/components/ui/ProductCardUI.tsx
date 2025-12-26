@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { HeadlessProductCard } from "@/components/headless/HeadlessProductCard"
+import { PaymentBadges } from "@/components/PaymentBadges"
 import type { Product } from "@/lib/supabase"
 
 /**
@@ -66,11 +67,16 @@ export const ProductCardUI = ({ product }: ProductCardUIProps) => {
                 {logic.product.title}
               </h3>
               {logic.product.description && (
-                <p className="text-muted-foreground text-xs mb-3 line-clamp-2">
+                <p className="text-muted-foreground text-xs mb-2 line-clamp-2">
                   {logic.product.description.replace(/<[^>]*>/g, '')}
                 </p>
               )}
             </Link>
+
+            {/* Payment Options Badges */}
+            <div className="mb-3">
+              <PaymentBadges price={logic.currentPrice} compact />
+            </div>
 
             {logic.hasVariants && logic.options && (
               <div className="mb-3 space-y-2">
