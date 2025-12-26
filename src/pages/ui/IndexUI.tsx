@@ -8,6 +8,7 @@ import { NewsletterSection } from '@/components/NewsletterSection';
 import { CareGuide } from '@/components/CareGuide';
 import { EcommerceTemplate } from '@/templates/EcommerceTemplate';
 import { Card, CardContent } from '@/components/ui/card';
+import { MarketBizFeatures } from '@/components/MarketBizFeatures';
 import type { UseIndexLogicReturn } from '@/components/headless/HeadlessIndex';
 
 /**
@@ -64,8 +65,8 @@ export const IndexUI = ({ logic }: IndexUIProps) => {
             </h1>
             
             <p className="text-xl mb-8 text-background/90 leading-relaxed">
-              Discover unique vintage pieces and give them a second life. Shop sustainable, 
-              look amazing, save the planet.
+              Tu marketplace de moda vintage con pagos instantáneos y seguros. 
+              Compra ahora, aparta o paga a crédito. <span className="text-secondary font-semibold">¡Tú decides!</span>
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -99,6 +100,9 @@ export const IndexUI = ({ logic }: IndexUIProps) => {
           </div>
         </div>
       </section>
+
+      {/* Market Biz Features Section */}
+      <MarketBizFeatures />
 
       {/* Collections Section */}
       {!loadingCollections && collections.length > 0 && (
@@ -182,11 +186,15 @@ export const IndexUI = ({ logic }: IndexUIProps) => {
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-success/10 text-success px-4 py-2 rounded-full mb-4">
+              <Shield className="h-5 w-5" />
+              <span className="font-semibold">Pagos en Tiempo Real</span>
+            </div>
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              Opciones de Pago Flexibles
+              Opciones de Pago Flexibles y Seguras
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Hacemos que sea fácil conseguir las piezas vintage que amas con opciones de pago seguras y flexibles
+              Market Biz procesa todos tus pagos de forma instantánea y segura. Elige la opción que mejor se adapte a ti.
             </p>
           </div>
           
@@ -270,7 +278,7 @@ export const IndexUI = ({ logic }: IndexUIProps) => {
                   </li>
                   <li className="flex items-start">
                     <span className="text-success mr-2">✓</span>
-                    <span>Procesado por Stripe</span>
+                    <span>Procesamiento en tiempo real</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-success mr-2">✓</span>

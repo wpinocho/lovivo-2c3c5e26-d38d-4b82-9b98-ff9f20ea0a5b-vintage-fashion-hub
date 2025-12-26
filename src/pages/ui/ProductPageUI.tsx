@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EcommerceTemplate } from "@/templates/EcommerceTemplate"
-import { ShoppingCart, ArrowLeft, Plus, Minus } from "lucide-react"
+import { ShoppingCart, ArrowLeft, Plus, Minus, Zap } from "lucide-react"
 import { Link } from "react-router-dom"
 import { PaymentOptions } from "@/components/PaymentOptions"
 
@@ -207,6 +207,19 @@ export const ProductPageUI = ({ logic }: ProductPageUIProps) => {
           </div>
 
           <Separator />
+
+          {/* Real-time payment badge */}
+          <div className="bg-success/10 border border-success/20 rounded-lg p-3 flex items-center gap-3">
+            <div className="bg-success/20 p-2 rounded-full">
+              <Zap className="h-4 w-4 text-success fill-current" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-success">Pago en Tiempo Real</p>
+              <p className="text-xs text-muted-foreground">
+                Confirmación instantánea • Procesamiento inmediato
+              </p>
+            </div>
+          </div>
 
           {/* Payment Options */}
           <PaymentOptions 

@@ -118,9 +118,9 @@ export const EcommerceTemplate = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <div className="text-2xl font-bold mb-2">REVIVE</div>
+            <div className="text-2xl font-bold mb-2">Market Biz</div>
             <p className="mt-4 text-background/70">
-              Sustainable fashion, unique finds, second chances
+              Tu marketplace de moda vintage con pagos seguros y flexibles
             </p>
           </div>
 
@@ -140,12 +140,12 @@ export const EcommerceTemplate = ({
               >
                 Blog
               </Link>
-              <a 
-                href="#" 
+              <Link 
+                to="/my-layaways" 
                 className="block text-background/70 hover:text-background transition-colors"
               >
-                Sell With Us
-              </a>
+                Mis Apartados
+              </Link>
             </div>
           </div>
 
@@ -160,7 +160,7 @@ export const EcommerceTemplate = ({
         </div>
 
         <div className="mt-8 pt-8 border-t border-background/20 text-center text-background/70">
-          <p>&copy; 2025 REVIVE. Recommerce with purpose.</p>
+          <p>&copy; 2025 Market Biz. Pagos seguros en tiempo real.</p>
         </div>
       </div>
     </div>

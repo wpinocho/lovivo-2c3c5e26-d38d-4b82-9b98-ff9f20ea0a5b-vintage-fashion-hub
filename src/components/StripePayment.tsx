@@ -12,6 +12,8 @@ import { useCart } from "@/contexts/CartContext"
 import { useCheckoutState } from "@/hooks/useCheckoutState"
 import { useSettings } from "@/contexts/SettingsContext"
 import { trackPurchase, tracking } from "@/lib/tracking-utils"
+import { RealTimePaymentStatus } from "@/components/RealTimePaymentStatus"
+import { PaymentSecurityBadge } from "@/components/PaymentSecurityBadge"
 
 interface StripePaymentProps {
   amountCents: number
@@ -58,6 +60,7 @@ function PaymentForm({
   const elements = useElements()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
+  const [paymentStatus, setPaymentStatus] = useState<'processing' | 'succeeded' | 'failed' | 'pending'>('pending')
   const navigate = useNavigate()
   const { clearCart } = useCart()
   const { updateOrderCache, getFreshOrder, getOrderSnapshot } = useCheckoutState()
@@ -113,6 +116,7 @@ function PaymentForm({
 
     try {
       setLoading(true)
+      setPaymentStatus('processing')
 
       // Prefer backend order items when available to avoid stale UI
       const sourceOrder = (typeof getFreshOrder === 'function' ? getFreshOrder() : null) || (typeof getOrderSnapshot === 'function' ? getOrderSnapshot() : null)
@@ -271,15 +275,18 @@ function PaymentForm({
 
       if (result.error) {
         console.error("Error confirmando pago:", result.error)
+        setPaymentStatus('failed')
         toast({ 
-          title: "Payment failed", 
-          description: result.error.message || "Error processing payment", 
+          title: "Pago fallido", 
+          description: result.error.message || "Error al procesar el pago", 
           variant: "destructive" 
         })
         return
       }
 
       if (result.paymentIntent?.status === "succeeded") {
+        setPaymentStatus('succeeded')
+        
         // Track Purchase event with proper formatting
         trackPurchase({
           products: paymentItems.map((item: any) => tracking.createTrackingProduct({
@@ -306,17 +313,20 @@ function PaymentForm({
           localStorage.setItem('completed_order', JSON.stringify(data.order))
         }
         
-        // Redirigir a thank you page
-        navigate(`/thank-you/${orderId}`)
+        // Pequeño delay para mostrar el estado de éxito
+        setTimeout(() => {
+          navigate(`/thank-you/${orderId}`)
+        }, 1500)
         
         toast({ 
-          title: "Payment successful!", 
-          description: "Your purchase has been processed successfully." 
+          title: "¡Pago procesado en tiempo real!", 
+          description: "Tu compra ha sido confirmada instantáneamente." 
         })
       } else {
+        setPaymentStatus('failed')
         toast({ 
-          title: "Payment status", 
-          description: `Status: ${result.paymentIntent?.status ?? "unknown"}` 
+          title: "Estado del pago", 
+          description: `Estado: ${result.paymentIntent?.status ?? "desconocido"}` 
         })
       }
     } catch (err: any) {
@@ -364,16 +374,25 @@ function PaymentForm({
         variant: "destructive" 
       })
     } finally {
-      setLoading(false)
+      if (paymentStatus !== 'succeeded') {
+        setLoading(false)
+      }
     }
   }
 
   return (
     <div className="space-y-6">
-      {/* Security information */}
-      <div className="text-sm text-muted-foreground text-center">
-        🔒 All transactions are secure and encrypted.
-      </div>
+      {/* Real-time payment security badge */}
+      <PaymentSecurityBadge />
+
+      {/* Payment status indicator */}
+      {loading && (
+        <RealTimePaymentStatus 
+          status={paymentStatus}
+          amount={amountCents}
+          currency={currency}
+        />
+      )}
 
       {/* Sección de pago con tarjeta */}
       <Card>
@@ -427,7 +446,9 @@ function PaymentForm({
       </Button>
 
       <div className="text-xs text-muted-foreground text-center">
-        By clicking "Complete Purchase", you accept our terms and conditions.
+        Al hacer clic en "Complete Purchase", aceptas nuestros términos y condiciones.
+        <br />
+        <span className="text-success font-medium">✓ Procesamiento instantáneo</span> • Confirmación en segundos
       </div>
     </div>
   )
